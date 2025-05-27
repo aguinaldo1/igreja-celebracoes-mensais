@@ -1,12 +1,13 @@
-
 import React, { useState } from 'react';
-import { Calendar, Church, Plus, FileText, Users } from 'lucide-react';
+import { Calendar, Church, Plus, FileText, Users, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import CadastroEventos from '@/components/CadastroEventos';
 import ConsultaMensal from '@/components/ConsultaMensal';
 import GeradorPoster from '@/components/GeradorPoster';
+import ConfiguracaoNotificacoes from '@/components/ConfiguracaoNotificacoes';
+import SistemaNotificacoes from '@/components/SistemaNotificacoes';
 
 export interface Evento {
   id: string;
@@ -60,6 +61,10 @@ const Index = () => {
     setEventos(eventos.filter(evento => evento.id !== id));
   };
 
+  const salvarConfiguracao = (config: any) => {
+    console.log('Configuração salva:', config);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
       <div className="container mx-auto px-4 py-8">
@@ -77,6 +82,11 @@ const Index = () => {
           <p className="text-md text-gray-500 mt-2">
             Gerencie aniversários e casamentos da nossa comunidade
           </p>
+        </div>
+
+        {/* Sistema de Notificações */}
+        <div className="mb-6">
+          <SistemaNotificacoes eventos={eventos} />
         </div>
 
         {/* Stats Cards */}
@@ -126,7 +136,7 @@ const Index = () => {
         <Card className="bg-white/80 backdrop-blur-sm shadow-xl">
           <CardContent className="p-6">
             <Tabs defaultValue="consulta" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-6">
+              <TabsList className="grid w-full grid-cols-4 mb-6">
                 <TabsTrigger value="consulta" className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   Consultar Mês
@@ -138,6 +148,10 @@ const Index = () => {
                 <TabsTrigger value="poster" className="flex items-center gap-2">
                   <FileText className="w-4 h-4" />
                   Gerar Pôster
+                </TabsTrigger>
+                <TabsTrigger value="notificacoes" className="flex items-center gap-2">
+                  <Bell className="w-4 h-4" />
+                  Notificações
                 </TabsTrigger>
               </TabsList>
 
@@ -151,6 +165,10 @@ const Index = () => {
 
               <TabsContent value="poster">
                 <GeradorPoster eventos={eventos} />
+              </TabsContent>
+
+              <TabsContent value="notificacoes">
+                <ConfiguracaoNotificacoes onSalvarConfiguracao={salvarConfiguracao} />
               </TabsContent>
             </Tabs>
           </CardContent>
