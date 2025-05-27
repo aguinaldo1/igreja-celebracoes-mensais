@@ -1,73 +1,131 @@
-# Welcome to your Lovable project
 
-## Project info
+# 🎉 Agenda de Aniversários da Igreja
 
-**URL**: https://lovable.dev/projects/2271d9d4-f933-4e9e-9ce8-0def06525990
+> Um sistema simples e eficiente para gerenciar aniversários e casamentos da sua comunidade religiosa, com notificações automáticas e geração de pôsteres prontos para redes sociais.
 
-## How can I edit this code?
+## ✨ O que este app faz?
 
-There are several ways of editing your application.
+Este sistema foi criado especialmente para igrejas e comunidades que querem:
 
-**Use Lovable**
+- 📝 **Cadastrar** aniversários de membros e casamentos
+- 🔔 **Receber lembretes** automáticos um dia antes de cada evento
+- 🎨 **Gerar textos prontos** para criar pôsteres no Canva
+- 📱 **Compartilhar** facilmente no WhatsApp e Instagram
+- 📅 **Consultar** todos os eventos por mês
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/2271d9d4-f933-4e9e-9ce8-0def06525990) and start prompting.
+## 🚀 Funcionalidades
 
-Changes made via Lovable will be committed automatically to this repo.
+### 📋 Cadastro de Eventos
+- **Aniversários pessoais**: Nome completo, data de nascimento
+- **Aniversários de casamento**: Nomes dos cônjuges, data do casamento
+- **Observações**: Campo opcional para grupos, ministérios, etc.
 
-**Use your preferred IDE**
+### 🔔 Sistema de Notificações Inteligente
+- Envia lembretes **um dia antes** de cada evento
+- Notificações por **email** e **WhatsApp** (via Zapier)
+- Texto personalizado pronto para usar
+- Configuração de horário preferido
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 🎨 Gerador de Pôsteres
+- Texto formatado automaticamente
+- Pronto para copiar e colar no Canva
+- Separação por aniversários e casamentos
+- Versículo bíblico incluído
+- Tom carinhoso e acolhedor
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 📱 Interface Amigável
+- Design responsivo (funciona no celular)
+- Navegação simples e intuitiva
+- Cores inspiradas no tema religioso
+- Ícones claros e explicativos
 
-Follow these steps:
+## 🛠️ Tecnologias Utilizadas
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- **React + TypeScript**: Interface moderna e segura
+- **Tailwind CSS**: Design responsivo e bonito
+- **Shadcn/UI**: Componentes profissionais
+- **Local Storage**: Dados salvos no navegador
+- **Zapier Integration**: Automação para WhatsApp
+- **EmailJS**: Envio de emails (opcional)
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🎯 Como Usar
 
-# Step 3: Install the necessary dependencies.
-npm i
+### 1. Cadastrar Eventos
+- Acesse a aba "Cadastro"
+- Preencha os dados da pessoa/casal
+- Escolha o tipo (aniversário ou casamento)
+- Salve as informações
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+### 2. Configurar Notificações
+- Vá em "Configurações"
+- Ative email e/ou WhatsApp
+- Configure seus dados de contato
+- Para WhatsApp: conecte um webhook do Zapier
 
-**Edit a file directly in GitHub**
+### 3. Gerar Pôsteres
+- Acesse "Gerador de Pôster"
+- Escolha o mês desejado
+- Copie o texto gerado
+- Cole no Canva ou envie direto no WhatsApp
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### 4. Acompanhar Eventos
+- Use "Consulta Mensal" para ver todos os eventos
+- Receba notificações automáticas
+- Nunca mais esqueça um aniversário!
 
-**Use GitHub Codespaces**
+## 🔧 Deploy Gratuito
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Este app pode ser hospedado gratuitamente em:
 
-## What technologies are used for this project?
+- **Vercel** (recomendado)
+- **Netlify** 
+- **GitHub Pages**
 
-This project is built with:
+### Para fazer deploy no Vercel:
+1. Conecte este projeto ao GitHub
+2. Conecte sua conta GitHub no Vercel
+3. Faça o deploy com um clique
+4. Sua igreja terá um sistema profissional sem custo!
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 📞 Configuração do WhatsApp (Zapier)
 
-## How can I deploy this project?
+Para receber notificações no WhatsApp:
 
-Simply open [Lovable](https://lovable.dev/projects/2271d9d4-f933-4e9e-9ce8-0def06525990) and click on Share -> Publish.
+1. Crie uma conta gratuita no [Zapier](https://zapier.com)
+2. Crie um novo Zap com trigger "Webhooks by Zapier"
+3. Configure a ação para "WhatsApp Business"
+4. Copie a URL do webhook
+5. Cole nas configurações do app
+6. Teste e ative o Zap
 
-## Can I connect a custom domain to my Lovable project?
+**Plano gratuito**: 100 automações por mês (mais que suficiente!)
 
-Yes, you can!
+## 💡 Dicas de Uso
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- **Lembrete mensal**: Configure um lembrete no seu celular para o dia 25 de cada mês para gerar o pôster do mês seguinte
+- **Backup**: Exporte os dados periodicamente (funcionalidade em desenvolvimento)
+- **Equipe**: Compartilhe a URL com outros líderes da igreja
+- **Personalização**: Edite os textos gerados conforme o tom da sua comunidade
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 🙏 Versículo de Inspiração
+
+> *"O Senhor te abençoe e te guarde"* - Números 6:24
+
+## 🤝 Contribuições
+
+Este projeto foi criado com amor para servir às comunidades religiosas. Sinta-se à vontade para:
+
+- Reportar problemas
+- Sugerir melhorias
+- Compartilhar com outras igrejas
+- Dar feedback sobre funcionalidades
+
+## 📄 Licença
+
+Projeto de código aberto para uso livre em comunidades religiosas.
+
+---
+
+**Desenvolvido com ❤️ para fortalecer os laços da comunidade cristã**
+
+*"Lembrem-se uns dos outros em oração e celebrem juntos as bênçãos de Deus!"*
