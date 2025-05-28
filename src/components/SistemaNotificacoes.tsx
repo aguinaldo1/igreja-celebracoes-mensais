@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Evento } from '@/pages/Index';
+import emailjs from '@emailjs/browser';
 
 interface SistemaNotificacoesProps {
   eventos: Evento[];
@@ -87,15 +88,48 @@ const SistemaNotificacoes: React.FC<SistemaNotificacoesProps> = ({ eventos }) =>
     return texto;
   };
 
+  const enviarEmailJS = async (email: string, texto: string) => {
+    try {
+      // Inicializar o EmailJS com sua chave pública
+      emailjs.init('sua_chave_publica_emailjs');
+      
+      const templateParams = {
+        to_email: email,
+        to_name: 'Igreja',
+        subject: '🔔 Lembrete: Aniversários de Amanhã',
+        message: texto,
+        from_name: 'Sistema de Aniversários da Igreja'
+      };
+
+      const response = await emailjs.send(
+        'seu_service_id',
+        'seu_template_id',
+        templateParams
+      );
+
+      console.log('Email enviado com sucesso:', response);
+      return true;
+    } catch (error) {
+      console.error('Erro ao enviar email:', error);
+      return false;
+    }
+  };
+
   const enviarNotificacoes = async (eventos: Evento[]) => {
     const textoNotificacao = gerarTextoNotificacao(eventos);
+    let emailEnviado = false;
+    let whatsappEnviado = false;
 
     try {
-      // Notificação por Email (usando EmailJS seria necessário configurar)
+      // Notificação por Email usando EmailJS
       if (configuracao.notificacaoEmail && configuracao.email) {
-        // Simular envio de email (aqui você integraria com EmailJS)
-        console.log('Email enviado para:', configuracao.email);
-        console.log('Conteúdo:', textoNotificacao);
+        emailEnviado = await enviarEmailJS(configuracao.email, textoNotificacao);
+        
+        if (emailEnviado) {
+          console.log('Email enviado para:', configuracao.email);
+        } else {
+          console.error('Falha ao enviar email');
+        }
       }
 
       // Notificação por WhatsApp (via Zapier)
@@ -113,13 +147,27 @@ const SistemaNotificacoes: React.FC<SistemaNotificacoesProps> = ({ eventos }) =>
           }),
         });
 
+        whatsappEnviado = true;
         console.log('WhatsApp webhook acionado');
       }
 
-      toast({
-        title: "Notificações enviadas!",
-        description: `Lembretes enviados para ${eventos.length} evento(s) de amanhã.`,
-      });
+      // Feedback para o usuário
+      if (emailEnviado || whatsappEnviado) {
+        const canais = [];
+        if (emailEnviado) canais.push('email');
+        if (whatsappEnviado) canais.push('WhatsApp');
+        
+        toast({
+          title: "Notificações enviadas!",
+          description: `Lembretes enviados via ${canais.join(' e ')} para ${eventos.length} evento(s) de amanhã.`,
+        });
+      } else {
+        toast({
+          title: "Configuração necessária",
+          description: "Configure o EmailJS para enviar notificações por email.",
+          variant: "destructive",
+        });
+      }
 
     } catch (error) {
       console.error('Erro ao enviar notificações:', error);
@@ -140,6 +188,29 @@ const SistemaNotificacoes: React.FC<SistemaNotificacoesProps> = ({ eventos }) =>
 
   return (
     <div className="space-y-4">
+      {/* Instruções EmailJS */}
+      {configuracao && configuracao.notificacaoEmail && (
+        <Card className="border-blue-200 bg-blue-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-blue-800">
+              📧 Configuração de Email Necessária
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="text-blue-700 text-sm">
+            <p className="mb-2">Para receber emails, configure o EmailJS:</p>
+            <ol className="space-y-1 list-decimal list-inside">
+              <li>Acesse <strong>emailjs.com</strong> e crie uma conta</li>
+              <li>Crie um serviço de email (Gmail, Outlook, etc.)</li>
+              <li>Crie um template de email</li>
+              <li>Copie as chaves do EmailJS e atualize o código</li>
+            </ol>
+            <p className="mt-2 text-xs text-blue-600">
+              Instruções detalhadas no README do projeto
+            </p>
+          </CardContent>
+        </Card>
+      )}
+
       {proximosEventos.length > 0 && (
         <Card className="border-orange-200 bg-orange-50">
           <CardHeader>
