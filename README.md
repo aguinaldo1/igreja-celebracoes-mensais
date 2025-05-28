@@ -1,4 +1,3 @@
-
 # 📅 Agenda de Aniversários da Igreja
 
 Um sistema completo e carinhoso para gerenciar aniversários e datas especiais da nossa comunidade religiosa. Com notificações automáticas, geração de pôsteres e instalação como aplicativo no celular!
@@ -53,6 +52,122 @@ Um sistema completo e carinhoso para gerenciar aniversários e datas especiais d
 3. Copie o texto gerado
 4. Use no Canva para criar o design
 5. Poste nas redes sociais
+
+## ⚙️ Configuração da Esteira CI/CD (GitHub Actions + Vercel)
+
+Esta seção é essencial para configurar o deploy automático no Vercel através do GitHub Actions.
+
+### Pré-requisitos
+1. Conta no GitHub (repositório já conectado)
+2. Conta no Vercel
+3. Projeto já importado no Vercel
+
+### Passo 1: Obter Credenciais do Vercel
+
+#### 1.1 VERCEL_TOKEN
+1. Acesse [vercel.com/account/tokens](https://vercel.com/account/tokens)
+2. Clique em "Create Token"
+3. Dê um nome para o token (ex: "GitHub Actions CI/CD")
+4. Selecione o escopo necessário
+5. Clique em "Create"
+6. **Copie o token imediatamente** (não será mostrado novamente)
+
+#### 1.2 VERCEL_ORG_ID
+1. Acesse [vercel.com/teams](https://vercel.com/teams)
+2. Clique no seu time/organização
+3. Vá em "Settings" > "General"
+4. Copie o "Team ID" (este é o VERCEL_ORG_ID)
+
+#### 1.3 VERCEL_PROJECT_ID
+1. Acesse seu projeto no Vercel
+2. Vá em "Settings" > "General"
+3. Copie o "Project ID"
+
+### Passo 2: Configurar Secrets no GitHub
+
+1. Vá para o seu repositório no GitHub
+2. Clique em "Settings" (aba do repositório)
+3. No menu lateral, clique em "Secrets and variables" > "Actions"
+4. Clique em "New repository secret"
+5. Adicione cada secret:
+
+#### Secrets Obrigatórios:
+```
+Nome: VERCEL_TOKEN
+Valor: [seu token do Vercel]
+
+Nome: VERCEL_ORG_ID  
+Valor: [seu team/org ID do Vercel]
+
+Nome: VERCEL_PROJECT_ID
+Valor: [seu project ID do Vercel]
+```
+
+#### Secrets para Notificações (Opcionais):
+```
+Nome: VITE_EMAILJS_PUBLIC_KEY
+Valor: L6LaJJdHzs3Fnwp4h
+
+Nome: VITE_EMAILJS_SERVICE_ID
+Valor: service_50a8uwm
+
+Nome: VITE_EMAILJS_TEMPLATE_ID
+Valor: template_6qeilv8
+
+Nome: VITE_ZAPIER_WEBHOOK_URL
+Valor: https://hooks.zapier.com/hooks/catch/23114378/2jli2w9/
+```
+
+### Passo 3: Verificar Configuração
+
+Após configurar os secrets:
+
+1. Faça um commit qualquer no repositório
+2. Vá para a aba "Actions" do GitHub
+3. Verifique se o workflow está executando
+4. Aguarde a conclusão do deploy
+5. Acesse seu site no Vercel para verificar se está funcionando
+
+### 🔄 Fluxo de Deploy Automático
+
+A partir de agora, a cada push para a branch `main`:
+
+1. ✅ **Análise de Código**: ESLint e verificações de qualidade
+2. ✅ **Build de Teste**: Verifica se o projeto compila
+3. ✅ **Testes**: Executa todos os testes automatizados
+4. ✅ **Análise de Segurança**: CodeQL para detectar vulnerabilidades
+5. ✅ **Deploy Preview**: Deploy de preview no Vercel
+6. ✅ **Deploy Produção**: Deploy automático em produção
+7. ✅ **Audit de Performance**: Lighthouse CI para métricas de performance
+8. ✅ **Notificações**: Status do deploy via GitHub
+
+### 🛡️ Segurança dos Secrets
+
+- ✅ **Criptografados**: Todos os secrets são criptografados pelo GitHub
+- ✅ **Acesso Restrito**: Apenas workflows autorizados podem acessar
+- ✅ **Não Expostos**: Jamais aparecem nos logs públicos
+- ✅ **Auditoria**: Todas as utilizações são logadas
+- ✅ **Rotação**: Podem ser atualizados a qualquer momento
+
+### 🐛 Troubleshooting CI/CD
+
+#### Deploy Falha com Erro de Token
+```bash
+Error: Invalid token
+```
+**Solução**: Verificar se o VERCEL_TOKEN foi configurado corretamente
+
+#### Projeto Não Encontrado
+```bash
+Error: Project not found
+```
+**Solução**: Verificar VERCEL_PROJECT_ID e VERCEL_ORG_ID
+
+#### Build Falha
+```bash
+Error: Build failed
+```
+**Solução**: Verificar se todas as dependências estão no package.json
 
 ## 📧 Configuração de Email (EmailJS)
 
@@ -178,12 +293,18 @@ src/
 
 ## 🚀 Deploy
 
-### Deploy na Vercel (Recomendado)
+### Deploy Automático (Recomendado)
+Com a esteira de CI/CD configurada, o deploy acontece automaticamente:
+- Push para `main` → Deploy automático
+- Pull Requests → Deploy de preview
+- Monitoramento contínuo de qualidade
+
+### Deploy Manual na Vercel
 1. Conecte seu repositório GitHub à Vercel
-2. Configure as variáveis de ambiente (se necessário)
+2. Configure as variáveis de ambiente no painel da Vercel
 3. Deploy automático a cada push
 
-### Deploy na Netlify
+### Deploy Manual na Netlify
 1. Conecte seu repositório à Netlify
 2. Configure o comando de build: `npm run build`
 3. Pasta de publicação: `dist`
