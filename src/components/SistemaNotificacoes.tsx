@@ -91,7 +91,7 @@ const SistemaNotificacoes: React.FC<SistemaNotificacoesProps> = ({ eventos }) =>
   const enviarEmailJS = async (email: string, texto: string) => {
     try {
       // Inicializar o EmailJS com sua chave pública
-      emailjs.init('sua_chave_publica_emailjs');
+      emailjs.init('L6LaJJdHzs3Fnwp4h');
       
       const templateParams = {
         to_email: email,
@@ -102,8 +102,8 @@ const SistemaNotificacoes: React.FC<SistemaNotificacoesProps> = ({ eventos }) =>
       };
 
       const response = await emailjs.send(
-        'seu_service_id',
-        'seu_template_id',
+        'service_50a8uwm',
+        'template_6qeilv8',
         templateParams
       );
 
