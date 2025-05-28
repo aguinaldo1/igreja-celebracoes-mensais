@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { Calendar, Church, Plus, FileText, Users, Bell } from 'lucide-react';
+import { Calendar, Church, Plus, FileText, Users, Bell, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -67,65 +68,65 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center items-center mb-4">
-            <Church className="w-12 h-12 text-purple-600 mr-3" />
-            <h1 className="text-4xl font-bold text-gray-800">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="flex justify-center items-center mb-3 sm:mb-4">
+            <Church className="w-8 h-8 sm:w-12 sm:h-12 text-purple-600 mr-2 sm:mr-3" />
+            <h1 className="text-2xl sm:text-4xl font-bold text-gray-800">
               Agenda de Celebrações
             </h1>
           </div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto px-2">
             "O Senhor te abençoe e te guarde" - Números 6:24
           </p>
-          <p className="text-md text-gray-500 mt-2">
+          <p className="text-xs sm:text-md text-gray-500 mt-1 sm:mt-2 px-2">
             Gerencie aniversários e casamentos da nossa comunidade
           </p>
         </div>
 
         {/* Sistema de Notificações */}
-        <div className="mb-6">
+        <div className="mb-4 sm:mb-6">
           <SistemaNotificacoes eventos={eventos} />
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-3 gap-2 sm:gap-6 mb-6 sm:mb-8">
           <Card className="bg-white/70 backdrop-blur-sm border-purple-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">
-                Total de Eventos
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 sm:pb-2 p-3 sm:p-6">
+              <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">
+                Total
               </CardTitle>
-              <Calendar className="h-4 w-4 text-purple-600" />
+              <Calendar className="h-3 w-3 sm:h-4 sm:w-4 text-purple-600" />
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-purple-700">{eventos.length}</div>
+            <CardContent className="p-3 sm:p-6 pt-0">
+              <div className="text-lg sm:text-2xl font-bold text-purple-700">{eventos.length}</div>
             </CardContent>
           </Card>
 
           <Card className="bg-white/70 backdrop-blur-sm border-pink-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 sm:pb-2 p-3 sm:p-6">
+              <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">
                 Aniversários
               </CardTitle>
-              <Users className="h-4 w-4 text-pink-600" />
+              <Users className="h-3 w-3 sm:h-4 sm:w-4 text-pink-600" />
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-pink-700">
+            <CardContent className="p-3 sm:p-6 pt-0">
+              <div className="text-lg sm:text-2xl font-bold text-pink-700">
                 {eventos.filter(e => e.tipo === 'aniversario').length}
               </div>
             </CardContent>
           </Card>
 
           <Card className="bg-white/70 backdrop-blur-sm border-blue-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 sm:pb-2 p-3 sm:p-6">
+              <CardTitle className="text-xs sm:text-sm font-medium text-gray-600">
                 Casamentos
               </CardTitle>
-              <Church className="h-4 w-4 text-blue-600" />
+              <Church className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-blue-700">
+            <CardContent className="p-3 sm:p-6 pt-0">
+              <div className="text-lg sm:text-2xl font-bold text-blue-700">
                 {eventos.filter(e => e.tipo === 'casamento').length}
               </div>
             </CardContent>
@@ -134,24 +135,28 @@ const Index = () => {
 
         {/* Main Content */}
         <Card className="bg-white/80 backdrop-blur-sm shadow-xl">
-          <CardContent className="p-6">
+          <CardContent className="p-3 sm:p-6">
             <Tabs defaultValue="consulta" className="w-full">
-              <TabsList className="grid w-full grid-cols-4 mb-6">
-                <TabsTrigger value="consulta" className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  Consultar Mês
+              <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 mb-4 sm:mb-6 h-auto">
+                <TabsTrigger value="consulta" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
+                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Mês Atual</span>
+                  <span className="sm:hidden">Atual</span>
                 </TabsTrigger>
-                <TabsTrigger value="cadastro" className="flex items-center gap-2">
-                  <Plus className="w-4 h-4" />
-                  Cadastrar
+                <TabsTrigger value="cadastro" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
+                  <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Cadastrar</span>
+                  <span className="sm:hidden">Add</span>
                 </TabsTrigger>
-                <TabsTrigger value="poster" className="flex items-center gap-2">
-                  <FileText className="w-4 h-4" />
-                  Gerar Pôster
+                <TabsTrigger value="poster" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
+                  <FileText className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Gerar Pôster</span>
+                  <span className="sm:hidden">Pôster</span>
                 </TabsTrigger>
-                <TabsTrigger value="notificacoes" className="flex items-center gap-2">
-                  <Bell className="w-4 h-4" />
-                  Notificações
+                <TabsTrigger value="notificacoes" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
+                  <Bell className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Notificações</span>
+                  <span className="sm:hidden">Avisos</span>
                 </TabsTrigger>
               </TabsList>
 
@@ -175,7 +180,7 @@ const Index = () => {
         </Card>
 
         {/* Footer */}
-        <div className="text-center mt-8 text-gray-500">
+        <div className="text-center mt-6 sm:mt-8 text-gray-500 text-xs sm:text-sm px-2">
           <p>Feito com ❤️ para nossa comunidade de fé</p>
         </div>
       </div>
