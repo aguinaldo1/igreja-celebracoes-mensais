@@ -66,6 +66,27 @@ const ConfiguracaoNotificacoes: React.FC<ConfiguracaoNotificacoesProps> = ({ onS
         <p className="text-gray-600">Configure como deseja receber lembretes dos aniversários</p>
       </div>
 
+      {/* Instruções EmailJS */}
+      <Card className="border-blue-200 bg-blue-50">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-blue-800">
+            📧 Configuração de Email Necessária
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="text-blue-700 text-sm">
+          <p className="mb-2">Para receber emails, configure o EmailJS:</p>
+          <ol className="space-y-1 list-decimal list-inside">
+            <li>Acesse <strong>emailjs.com</strong> e crie uma conta</li>
+            <li>Crie um serviço de email (Gmail, Outlook, etc.)</li>
+            <li>Crie um template de email</li>
+            <li>Copie as chaves do EmailJS e atualize o código</li>
+          </ol>
+          <p className="mt-2 text-xs text-blue-600">
+            Instruções detalhadas no README do projeto
+          </p>
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -149,7 +170,7 @@ const ConfiguracaoNotificacoes: React.FC<ConfiguracaoNotificacoesProps> = ({ onS
         </CardContent>
       </Card>
 
-      {/* Instruções */}
+      {/* Instruções WhatsApp */}
       <Card className="bg-gradient-to-r from-blue-50 to-green-50 border-blue-200">
         <CardHeader>
           <CardTitle className="text-blue-800">📱 Como Configurar WhatsApp</CardTitle>

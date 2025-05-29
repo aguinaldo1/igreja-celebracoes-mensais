@@ -2,7 +2,6 @@
 import React from 'react';
 import { Evento } from '@/pages/Index';
 import { useNotifications } from '@/hooks/useNotifications';
-import ConfiguracaoEmailInfo from '@/components/ConfiguracaoEmailInfo';
 import ProximosEventos from '@/components/ProximosEventos';
 import StatusNotificacoes from '@/components/StatusNotificacoes';
 
@@ -15,9 +14,6 @@ const SistemaNotificacoes: React.FC<SistemaNotificacoesProps> = ({ eventos }) =>
 
   return (
     <div className="space-y-4">
-      {/* Instruções EmailJS */}
-      {configuracao && configuracao.notificacaoEmail && <ConfiguracaoEmailInfo />}
-
       {/* Próximos Eventos */}
       <ProximosEventos eventos={proximosEventos} />
 
