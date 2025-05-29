@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, Church, Plus, FileText, Users, Bell, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,48 +18,91 @@ export interface Evento {
   observacoes?: string;
 }
 
+const STORAGE_KEY = 'agenda-celebracoes-eventos';
+
 const Index = () => {
-  const [eventos, setEventos] = useState<Evento[]>([
-    {
-      id: '1',
-      tipo: 'aniversario',
-      nome: 'Maria da Silva',
-      data: '03/05',
-      observacoes: 'Ministério do Louvor'
-    },
-    {
-      id: '2',
-      tipo: 'aniversario',
-      nome: 'João Pereira',
-      data: '12/05',
-      observacoes: 'Jovens'
-    },
-    {
-      id: '3',
-      tipo: 'casamento',
-      nome: 'Ana e Carlos',
-      data: '07/05',
-      observacoes: 'Líderes'
-    },
-    {
-      id: '4',
-      tipo: 'casamento',
-      nome: 'Júlia e Renato',
-      data: '25/05',
-      observacoes: 'Casais Novos'
+  const [eventos, setEventos] = useState<Evento[]>([]);
+
+  // Carregar dados do localStorage ao inicializar
+  useEffect(() => {
+    try {
+      const eventosSalvos = localStorage.getItem(STORAGE_KEY);
+      if (eventosSalvos) {
+        const eventosCarregados = JSON.parse(eventosSalvos);
+        setEventos(eventosCarregados);
+        console.log('Eventos carregados do localStorage:', eventosCarregados);
+      } else {
+        // Se não há dados salvos, usar dados de exemplo
+        const eventosIniciais = [
+          {
+            id: '1',
+            tipo: 'aniversario' as const,
+            nome: 'Maria da Silva',
+            data: '03/05',
+            observacoes: 'Ministério do Louvor'
+          },
+          {
+            id: '2',
+            tipo: 'aniversario' as const,
+            nome: 'João Pereira',
+            data: '12/05',
+            observacoes: 'Jovens'
+          },
+          {
+            id: '3',
+            tipo: 'casamento' as const,
+            nome: 'Ana e Carlos',
+            data: '07/05',
+            observacoes: 'Líderes'
+          },
+          {
+            id: '4',
+            tipo: 'casamento' as const,
+            nome: 'Júlia e Renato',
+            data: '25/05',
+            observacoes: 'Casais Novos'
+          }
+        ];
+        setEventos(eventosIniciais);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(eventosIniciais));
+        console.log('Eventos iniciais criados e salvos');
+      }
+    } catch (error) {
+      console.error('Erro ao carregar eventos do localStorage:', error);
+      setEventos([]);
     }
-  ]);
+  }, []);
+
+  // Salvar no localStorage sempre que os eventos mudarem
+  useEffect(() => {
+    if (eventos.length > 0) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(eventos));
+        console.log('Eventos salvos no localStorage:', eventos);
+      } catch (error) {
+        console.error('Erro ao salvar eventos no localStorage:', error);
+      }
+    }
+  }, [eventos]);
 
   const adicionarEvento = (novoEvento: Omit<Evento, 'id'>) => {
     const evento: Evento = {
       ...novoEvento,
       id: Date.now().toString()
     };
-    setEventos([...eventos, evento]);
+    setEventos(eventosAtuais => {
+      const novosEventos = [...eventosAtuais, evento];
+      console.log('Novo evento adicionado:', evento);
+      return novosEventos;
+    });
   };
 
   const removerEvento = (id: string) => {
-    setEventos(eventos.filter(evento => evento.id !== id));
+    setEventos(eventosAtuais => {
+      const novosEventos = eventosAtuais.filter(evento => evento.id !== id);
+      console.log('Evento removido, ID:', id);
+      return novosEventos;
+    });
   };
 
   const salvarConfiguracao = (config: any) => {
@@ -140,8 +183,8 @@ const Index = () => {
               <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 mb-4 sm:mb-6 h-auto">
                 <TabsTrigger value="consulta" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
                   <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline">Mês Atual</span>
-                  <span className="sm:hidden">Atual</span>
+                  <span className="hidden sm:inline">Consultar Mês</span>
+                  <span className="sm:hidden">Consulta</span>
                 </TabsTrigger>
                 <TabsTrigger value="cadastro" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 p-2 sm:p-3 text-xs sm:text-sm">
                   <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
